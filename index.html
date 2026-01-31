@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Invoice Generator By Techbeamdesigns</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-background">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <span class="logo-icon">✨</span>
+                <h1>Free Invoice Generator <span style="font-weight: 300; font-size: 0.9em; opacity: 0.8;">By
+                        Techbeamdesigns</span></h1>
+            </div>
+            <div class="actions">
+                <button id="printBtn" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9V2h12v7"></path>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                        <path d="M6 14h12v8H6z"></path>
+                    </svg>
+                    Download PDF
+                </button>
+            </div>
+        </header>
+
+        <main class="workspace">
+            <!-- EDITOR SECTION -->
+            <section class="editor glass-panel">
+                <div class="editor-header">
+                    <h2>Edit Invoice</h2>
+                </div>
+
+                <div class="editor-content custom-scrollbar">
+
+                    <!-- Invoice Meta -->
+                    <div class="form-group grid-2">
+                        <div class="input-wrapper">
+                            <label>Invoice Number</label>
+                            <input type="text" id="invoiceNumber" value="INV-001" placeholder="#INV-001">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>Date</label>
+                            <input type="date" id="invoiceDate">
+                        </div>
+                    </div>
+
+                    <div class="form-group grid-2">
+                        <div class="input-wrapper">
+                            <label>Theme Style</label>
+                            <select id="themeSelect">
+                                <option value="default" selected>Lumina (Default)</option>
+                                <option value="emerald">Emerald Nature</option>
+                                <option value="sunset">Sunset Vibes</option>
+                                <option value="royal">Royal Purple</option>
+                                <option value="midnight">Midnight Pro</option>
+                                <option value="ocean">Ocean Depths</option>
+                                <option value="candy">Cotton Candy</option>
+                                <option value="corporate">Professional Grey</option>
+                                <option value="crimson">Crimson Red</option>
+                                <option value="cyberpunk">Cyberpunk Neon</option>
+                            </select>
+                        </div>
+                        <div class="input-wrapper">
+                            <label>Currency</label>
+                            <select id="currencySelect">
+                                <option value="USD" selected>USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="GBP">GBP (£)</option>
+                                <option value="INR">INR (₹)</option>
+                                <option value="JPY">JPY (¥)</option>
+                                <option value="CAD">CAD ($)</option>
+                                <option value="AUD">AUD ($)</option>
+                                <option value="CNY">CNY (¥)</option>
+                                <option value="CHF">CHF (Fr)</option>
+                                <option value="AED">AED (د.إ)</option>
+                                <option value="SAR">SAR (﷼)</option>
+                                <option value="ZAR">ZAR (R)</option>
+                                <option value="SGD">SGD ($)</option>
+                                <option value="NZD">NZD ($)</option>
+                                <option value="MXN">MXN ($)</option>
+                                <option value="BRL">BRL (R$)</option>
+                                <option value="RUB">RUB (₽)</option>
+                                <option value="KRW">KRW (₩)</option>
+                                <option value="TRY">TRY (₺)</option>
+                            </select>
+                        </div>
+                        <div class="input-wrapper">
+                            <label>Brand Logo</label>
+                            <div class="file-upload-wrapper">
+                                <label for="logoInput" class="custom-file-upload">
+                                    <span id="logoFileName">Choose Logo...</span>
+                                </label>
+                                <input type="file" id="logoInput" accept="image/*">
+                                <button id="removeLogoBtn" class="btn btn-sm btn-danger hidden"
+                                    title="Remove Logo">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <!-- Sender Details -->
+                    <div class="section-title">From</div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <label>Company Name</label>
+                            <input type="text" id="senderName" placeholder="Your Company Name" value="Techbeamdesigns">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>Email</label>
+                            <input type="email" id="senderEmail" placeholder="contact@company.com"
+                                value="contact@techbeamdesigns.com">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>Address</label>
+                            <textarea id="senderAddress" rows="2"
+                                placeholder="Street address, City, Country">123 Creative Ave, Design City, DC 90210</textarea>
+                        </div>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <!-- Client Details -->
+                    <div class="section-title">To</div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <label>Client Name</label>
+                            <input type="text" id="clientName" placeholder="Client Name" value="Acme Corp">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>Client Email</label>
+                            <input type="email" id="clientEmail" placeholder="billing@client.com"
+                                value="accounts@acme.com">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>Client Address</label>
+                            <textarea id="clientAddress" rows="2"
+                                placeholder="Street address, City, Country">456 Enterprise Blvd, Tech Park, TP 5000</textarea>
+                        </div>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <!-- Items -->
+                    <div class="section-title flex-between">
+                        <span>Items</span>
+                        <button id="addItemBtn" class="btn btn-sm btn-outline">+ Add Item</button>
+                    </div>
+                    <div id="itemsContainer" class="items-list">
+                        <!-- Items will be injected here via JS -->
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <!-- Payment Details -->
+                    <div class="section-title">Payment Details</div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <label>UPI / Payment ID</label>
+                            <input type="text" id="upiId" value="jabir84@fifederal" placeholder="username@bank">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>Payment QR Code</label>
+                            <div class="file-upload-wrapper">
+                                <label for="qrInput" class="custom-file-upload">
+                                    <span id="qrFileName">Use Default QR</span>
+                                </label>
+                                <input type="file" id="qrInput" accept="image/*">
+                                <button id="removeQrBtn" class="btn btn-sm btn-danger hidden"
+                                    title="Remove QR">×</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <!-- Totals & Notes -->
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <label>Tax Rate (%)</label>
+                            <input type="number" id="taxRate" value="10" min="0" step="0.1">
+                        </div>
+                        <div class="input-wrapper">
+                            <label>Notes / Terms</label>
+                            <textarea id="notes" rows="2"
+                                placeholder="Payment due within 14 days...">Payment due within 14 days. Thank you for your business!</textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- PREVIEW SECTION -->
+            <section class="preview-container">
+                <div id="invoicePreview" class="invoice-paper">
+                    <!-- Header -->
+                    <div class="inv-header">
+                        <div class="inv-brand">
+                            <img id="p_logo" src="" alt="Brand Logo" class="inv-logo hidden">
+                            <h1 id="p_senderName">Lumina Studios</h1>
+                            <p id="p_senderAddress">123 Creative Ave, Design City, DC 90210</p>
+                            <p id="p_senderEmail">hello@lumina.design</p>
+                        </div>
+                        <div class="inv-meta">
+                            <h2 class="inv-title">INVOICE</h2>
+                            <div class="meta-row">
+                                <span>NO:</span>
+                                <span id="p_invoiceNumber">INV-001</span>
+                            </div>
+                            <div class="meta-row">
+                                <span>DATE:</span>
+                                <span id="p_invoiceDate">2023-10-27</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Client Info -->
+                    <div class="inv-bill-to">
+                        <h3>BILL TO</h3>
+                        <p id="p_clientName" class="bill-name">Acme Corp</p>
+                        <p id="p_clientAddress">456 Enterprise Blvd, Tech Park, TP 5000</p>
+                        <p id="p_clientEmail">accounts@acme.com</p>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="inv-table-container">
+                        <table class="inv-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-desc">Description</th>
+                                    <th class="col-qty">Msg/Qty</th>
+                                    <th class="col-price">Price</th>
+                                    <th class="col-total">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="p_itemsBody">
+                                <!-- Preview items injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Totals & Payment -->
+                    <div class="inv-footer">
+                        <div class="inv-notes-payment">
+                            <div class="inv-notes">
+                                <h3>NOTES</h3>
+                                <p id="p_notes">Payment due within 14 days. Thank you for your business!</p>
+                            </div>
+
+                            <div class="inv-payment">
+                                <h3>PAYMENT METHOD</h3>
+                                <div class="payment-details">
+                                    <div class="qr-container">
+                                        <img id="p_qrCode" src="qr-code.jpg" alt="Payment QR">
+                                    </div>
+                                    <div class="payment-info">
+                                        <p>Scan to Pay</p>
+                                        <p class="upi-id" id="p_upiId">jabir84@fifederal</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="inv-totals">
+                            <div class="total-row">
+                                <span>Subtotal</span>
+                                <span id="p_subtotal">$0.00</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Tax (<span id="p_taxRate">10</span>%)</span>
+                                <span id="p_taxAmount">$0.00</span>
+                            </div>
+                            <div class="total-row grand-total">
+                                <span>Total</span>
+                                <span id="p_total">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inv-bottom-decoration"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,966 @@
+/* VARIABLES & THEME */
+:root {
+    --bg-dark: #0f172a;
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    --accent-primary: #6366f1;
+    /* Indigo */
+    --accent-secondary: #ec4899;
+    /* Pink */
+    --accent-glow: rgba(99, 102, 241, 0.4);
+
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Paper size for preview (A4 ratio approx) */
+    --paper-w: 210mm;
+    --paper-h: 297mm;
+    --paper-ratio: calc(210/297);
+}
+
+/* --- THEMES --- */
+
+/* 1. Default (Lumina) - Already in :root */
+
+/* 2. Emerald Nature */
+[data-theme="emerald"] {
+    --bg-dark: #064e3b;
+    /* Deep Green */
+    --bg-gradient: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+    --accent-primary: #10b981;
+    /* Emerald */
+    --accent-secondary: #34d399;
+    /* Light Green */
+    --accent-glow: rgba(16, 185, 129, 0.4);
+}
+
+/* 3. Sunset Vibes */
+[data-theme="sunset"] {
+    --bg-dark: #431407;
+    /* Deep Orange/Brown */
+    --bg-gradient: linear-gradient(135deg, #431407 0%, #7c2d12 100%);
+    --accent-primary: #f97316;
+    /* Orange */
+    --accent-secondary: #f43f5e;
+    /* Rose */
+    --accent-glow: rgba(249, 115, 22, 0.4);
+}
+
+/* 4. Royal Purple */
+[data-theme="royal"] {
+    --bg-dark: #2e1065;
+    /* Deep Purple */
+    --bg-gradient: linear-gradient(135deg, #2e1065 0%, #4c1d95 100%);
+    --accent-primary: #8b5cf6;
+    /* Violet */
+    --accent-secondary: #fbbf24;
+    /* Amber/Gold */
+    --accent-glow: rgba(139, 92, 246, 0.4);
+}
+
+/* 5. Midnight Pro */
+[data-theme="midnight"] {
+    --bg-dark: #000000;
+    --bg-gradient: linear-gradient(135deg, #000000 0%, #171717 100%);
+    --accent-primary: #f8fafc;
+    /* White */
+    --accent-secondary: #334155;
+    /* Slate */
+    --accent-glow: rgba(255, 255, 255, 0.2);
+}
+
+/* 6. Ocean Depths */
+[data-theme="ocean"] {
+    --bg-dark: #0c4a6e;
+    --bg-gradient: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+    --accent-primary: #0ea5e9;
+    /* Sky Blue */
+    --accent-secondary: #22d3ee;
+    /* Cyan */
+    --accent-glow: rgba(14, 165, 233, 0.4);
+}
+
+/* 7. Cotton Candy */
+[data-theme="candy"] {
+    --bg-dark: #831843;
+    --bg-gradient: linear-gradient(135deg, #831843 0%, #be185d 100%);
+    --accent-primary: #f472b6;
+    /* Pink */
+    --accent-secondary: #67e8f9;
+    /* Cyan */
+    --accent-glow: rgba(244, 114, 182, 0.4);
+}
+
+/* 8. Professional Grey (Corporate) */
+[data-theme="corporate"] {
+    --bg-dark: #1e293b;
+    --bg-gradient: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    --accent-primary: #3b82f6;
+    /* Blue */
+    --accent-secondary: #94a3b8;
+    /* Slate */
+    --accent-glow: rgba(59, 130, 246, 0.4);
+}
+
+/* 9. Crimson Red */
+[data-theme="crimson"] {
+    --bg-dark: #450a0a;
+    --bg-gradient: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%);
+    --accent-primary: #ef4444;
+    /* Red */
+    --accent-secondary: #fca5a5;
+    /* Light Red */
+    --accent-glow: rgba(239, 68, 68, 0.4);
+}
+
+/* 10. Cyberpunk Neon */
+[data-theme="cyberpunk"] {
+    --bg-dark: #11001c;
+    --bg-gradient: linear-gradient(135deg, #240046 0%, #3c096c 100%);
+    --accent-primary: #e0aaff;
+    --accent-secondary: #c77dff;
+    --accent-glow: rgba(224, 170, 255, 0.6);
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-dark);
+    color: var(--text-main);
+    height: 100vh;
+    overflow: hidden;
+    /* App-like feel */
+    display: flex;
+    flex-direction: column;
+}
+
+/* BACKGROUND ANIMATION */
+.app-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: float 20s infinite alternate;
+}
+
+.blob-1 {
+    width: 500px;
+    height: 500px;
+    background: var(--accent-primary);
+    top: -100px;
+    left: -100px;
+}
+
+.blob-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--accent-secondary);
+    bottom: -50px;
+    right: -50px;
+    animation-delay: -5s;
+}
+
+.blob-3 {
+    width: 300px;
+    height: 300px;
+    background: #8b5cf6;
+    top: 40%;
+    left: 40%;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(50px, 50px) rotate(20deg);
+    }
+}
+
+/* LAYOUT */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.app-header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-icon {
+    font-size: 1.5rem;
+}
+
+.logo h1 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.workspace {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+/* EDITOR PANE */
+.editor {
+    width: 450px;
+    min-width: 400px;
+    background: var(--glass-bg);
+    border-right: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.editor-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.editor-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.editor-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.input-wrapper {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-wrapper:last-child {
+    margin-bottom: 0;
+}
+
+label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+}
+
+input,
+textarea {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.7rem;
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.separator {
+    height: 1px;
+    background: var(--glass-border);
+    margin: 1.5rem 0;
+}
+
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Buttons */
+.btn {
+    border: none;
+    font-family: var(--font-body);
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:hover {
+    background: #5558e6;
+    transform: translateY(-1px);
+}
+
+select {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 0.7rem;
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: 100%;
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+select option {
+    background: var(--bg-dark);
+    color: var(--text-main);
+}
+
+/* Custom File Upload */
+.file-upload-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    flex: 1;
+    display: inline-block;
+    padding: 0.6rem 0.8rem;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-file-upload:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--text-muted);
+    color: var(--text-main);
+}
+
+.btn-sm {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+.btn-outline:hover {
+    border-color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-danger {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.btn-danger:hover {
+    background: rgba(239, 68, 68, 0.2);
+}
+
+/* PREVIEW PANE */
+.preview-container {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.1);
+    display: block;
+    /* switched to block for reliable scrolling */
+    padding: 2rem;
+    overflow-y: auto;
+    perspective: 1000px;
+}
+
+.invoice-paper {
+    width: 100%;
+    max-width: 800px;
+    /* A4ish width on screen */
+    min-height: 1000px;
+    margin: 0 auto;
+    /* Center the paper */
+    background: white;
+    color: #1e293b;
+    /* Dark slate for paper text */
+    padding: 3rem;
+    border-radius: 4px;
+    /* Paper corners */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    transform-origin: center top;
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) rotateX(2deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+/* PREVIEW STYLES (Paper Theme) */
+.inv-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--accent-glow);
+    /* Themed border */
+    align-items: flex-start;
+}
+
+.inv-brand {
+    display: flex;
+    flex-direction: column;
+}
+
+.inv-logo {
+    max-width: 180px;
+    max-height: 80px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.inv-brand h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    /* Themed Brand Name */
+    margin-bottom: 0.5rem;
+}
+
+.inv-brand p {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+.inv-meta {
+    text-align: right;
+}
+
+.inv-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--glass-border);
+    /* Subtle fallback */
+    background: var(--bg-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.3;
+    /* Subtle gradient text */
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    margin-top: -10px;
+}
+
+.meta-row {
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 0.3rem;
+}
+
+.meta-row span:first-child {
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: var(--accent-secondary);
+    /* Themed label */
+}
+
+.inv-bill-to {
+    margin-bottom: 3rem;
+}
+
+.inv-bill-to h3 {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+}
+
+.bill-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--bg-dark);
+    /* Themed text */
+    margin-bottom: 0.3rem;
+}
+
+.inv-bill-to p {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+/* Table */
+.inv-table-container {
+    margin-bottom: 2rem;
+}
+
+.inv-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.inv-table th {
+    text-align: left;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--accent-secondary);
+    /* Themed Header */
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-glow);
+}
+
+.inv-table td {
+    padding: 1rem 0;
+    border-bottom: 1px solid #f8fafc;
+    color: #334155;
+    font-size: 0.95rem;
+}
+
+.inv-table .col-desc {
+    width: 50%;
+}
+
+.inv-table .col-qty {
+    width: 15%;
+    text-align: center;
+}
+
+.inv-table .col-price {
+    width: 15%;
+    text-align: right;
+}
+
+.inv-table .col-total {
+    width: 20%;
+    text-align: right;
+    font-weight: 600;
+}
+
+.inv-table td.col-qty {
+    text-align: center;
+}
+
+.inv-table td.col-price {
+    text-align: right;
+}
+
+.inv-table td.col-total {
+    text-align: right;
+    color: var(--bg-dark);
+    /* Themed Total */
+}
+
+/* Footer & Payment */
+.inv-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    align-items: flex-start;
+}
+
+.inv-notes-payment {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.inv-notes h3,
+.inv-payment h3 {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.inv-notes p {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.inv-payment .payment-details {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #f8fafc;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--accent-glow);
+    /* Themed border */
+    width: fit-content;
+}
+
+.qr-container img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    display: block;
+}
+
+.payment-info p {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 0.2rem;
+}
+
+.payment-info .upi-id {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    color: var(--bg-dark);
+    font-size: 1rem;
+}
+
+.inv-totals {
+    width: 35%;
+}
+
+/* Item Description Styling in Table */
+.item-name {
+    font-weight: 500;
+    color: var(--bg-dark);
+    display: block;
+}
+
+.item-desc {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-top: 0.2rem;
+    line-height: 1.3;
+    display: block;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 0.95rem;
+    color: #64748b;
+}
+
+.total-row.grand-total {
+    border-top: 2px solid var(--bg-dark);
+    /* Themed border */
+    margin-top: 1rem;
+    padding-top: 1rem;
+    color: var(--bg-dark);
+    /* Themed color */
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.inv-bottom-decoration {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background: var(--bg-gradient);
+    border-radius: 0 0 4px 4px;
+}
+
+/* PRINT STYLES */
+@media print {
+    body {
+        background: white;
+        height: auto;
+        overflow: visible;
+        display: block;
+    }
+
+    .app-background,
+    .app-header,
+    .editor,
+    .preview-container::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .preview-container {
+        padding: 0;
+        background: white;
+        display: block;
+    }
+
+    .invoice-paper {
+        box-shadow: none;
+        max-width: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        /* Let page margins handle it usually, or standard padding */
+        animation: none;
+    }
+
+    /* Reset some screen specific tweaks */
+}
+
+/* Item Row Inputs inside Editor */
+.item-row {
+    display: grid;
+    grid-template-columns: 1fr 60px 80px 30px;
+    /* Base columns */
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: start;
+}
+
+.item-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.item-row input[type="number"] {
+    margin-top: 0;
+    /* Align with top input */
+}
+
+/* RESPONSIVE DESIGN */
+
+/* Tablet & Smaller Desktop (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .workspace {
+        flex-direction: column;
+        overflow-y: auto;
+        /* Allow whole page scroll */
+    }
+
+    .editor {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--glass-border);
+        max-height: 50vh;
+        /* Limit editor height on mobile so preview is visible */
+    }
+
+    .preview-container {
+        padding: 1rem;
+        height: auto;
+        overflow: visible;
+    }
+}
+
+/* Mobile (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .app-header {
+        padding: 0 1rem;
+        height: 60px;
+    }
+
+    .logo h1 {
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    /* Stack inputs in editor */
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    /* Adjust Item Row for small screens */
+    .item-row {
+        grid-template-columns: 1fr 50px 70px 30px;
+        gap: 0.3rem;
+    }
+
+    .item-row input {
+        padding: 0.4rem;
+        font-size: 0.8rem;
+    }
+
+    /* Scale the Invoice Preview to fit mobile width */
+    .preview-container {
+        overflow-x: auto;
+        /* Allow horizontal scroll if really needed, but scaling is better */
+        padding: 1rem 0.5rem;
+        display: flex;
+        /* Centering again for mobile zoom */
+        justify-content: center;
+    }
+
+    .invoice-paper {
+        /* Scale down for mobile view only */
+        transform-origin: top center;
+        transform: scale(0.55);
+        margin-bottom: -400px;
+        /* Compensate for the empty space left by scaling */
+        align-self: flex-start;
+    }
+
+    .editor {
+        max-height: auto;
+        /* Let editor scroll normally */
+        flex: none;
+        /* Don't flex */
+    }
+
+    body {
+        overflow: auto;
+        /* Enable body scroll on mobile */
+    }
+
+    .workspace {
+        overflow: visible;
+        flex: none;
+    }
+}
+
+/* Very Small Screens */
+@media screen and (max-width: 400px) {
+    .invoice-paper {
+        transform: scale(0.45);
+        margin-bottom: -500px;
+    }
+
+    .item-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 0.5rem;
+    }
+
+    .item-row input[type="number"],
+    .item-row button {
+        width: 100%;
+    }
+}
